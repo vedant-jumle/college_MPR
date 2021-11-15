@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <title>Output</title>
+    <meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.js"
+        integrity="sha512-53y53BQwxZvk4YGd9SkHPqI7nDwlIIFZ4D2BSJG08Co7y6O3YsWeRtO6trPtdoyqfTCTkTbCulNosIAI6E4UvQ=="
+        crossorigin="anonymous"></script>
+</head>
+
+<body onload="getOutput()">
+
+    <div id="img"></div>
+
+    <label id="prediction"></label><br>
+    <label id="proobablity"></label>
+</body>
+
+<script>
+    const filename = Qs.parse(location.search, {
+        ignoreQueryPrefix: true
+    }).filename;
+
+    async function getOutput(){
+
+        // add image to the body
+        const img = document.createElement('img');
+        img.src = `/img/${filename}`;
+        document.getElementById('img').appendChild(img);
+
+        const response = await fetch(`/predict?filename=${filename}`);
+        const data = await response.json();
+
+        document.getElementById("prediction").innerHTML = data.verdict;
+        document.getElementById("proobablity").innerHTML = data.probablity;
+
+        // document.body.innerHTML = data;
+        console.log(data);
+    }
+
+</script>
+
+</html>

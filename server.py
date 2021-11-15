@@ -9,7 +9,7 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 identifier = Identifier()
 UPLOAD_FOLDER = 'static'
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
 app.secret_key = "secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
@@ -23,9 +23,9 @@ def index():
 
 @app.route("/img/<filename>")
 def return_img(filename):
-    return redirect(url_for('static', filename='uploads/' + filename), code=301)
+    return redirect(url_for('static', filename=filename), code=301)
 
-@app.route('/', methods=['POST'])
+@app.route('/upload', methods=['POST'])
 def upload_image():
 	if 'file' not in request.files:
 		flash('No file part')
@@ -39,11 +39,23 @@ def upload_image():
 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 		#print('upload_image filename: ' + filename)
 		flash('Image successfully uploaded and displayed below')
-		return redirect("/predict/")
+		return redirect(f"/output?filename={filename}")
 	else:
 		flash('Allowed image types are -> png, jpg, jpeg, gif')
 		return redirect(request.url)
 
-app.route("/predict/<filename>")
-def predict(filename):
-    pass
+@app.route("/output")
+def output():
+	return render_template("output.html")
+
+@app.route("/predict")
+def predict_url():
+	filename = request.args.get('filename')
+	verdict, probablity = identifier.predict_image(f"./static/{filename}")
+	data = {"verdict": verdict, "probablity": probablity}
+	print(data)
+	return jsonify(data)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

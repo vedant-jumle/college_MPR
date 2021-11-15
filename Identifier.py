@@ -20,4 +20,5 @@ class Identifier:
         test = self.model(images)
         p_class = np.argmax(test.numpy()[0])
         probabilty = test[0][p_class].numpy()
-        return self.classes_map[self.classes_list[p_class]], round(probabilty*100, 2)
+        # return self.classes_map[self.classes_list[p_class]], round(probabilty*100, 2)
+        return self.classes_list[p_class], round(probabilty*100, 2)
