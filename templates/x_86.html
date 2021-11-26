@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>X86_64</title>
+
+    <style>
+      
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      table,
+      th,
+      tbody,
+      tr,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 20px;
+        color: black;
+        border-spacing: 7px;
+      }
+
+      th {
+        background-color: rgba(255, 255, 255, 0.639);
+      }
+      td {
+        background-color: rgba(255, 255, 255, 0.639);
+      }
+      .main-page {
+        margin: 0;
+        padding: 0;
+        background: url("background.png") no-repeat center;
+        display: flex;
+      }
+      .left,
+      .right {
+        height: 95vh;
+        display: flex;
+        width: 50%;
+      }
+      .right {
+        align-content: center;
+        justify-content: center;
+      }
+
+      .buttonss {
+        display: flex;
+        flex-direction: row;
+      }
+      button {
+        background-color: #3f51b5;
+        border: none;
+        color: #ffffff;
+        padding: 15px 32px;
+        text-align: center;
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 5px;
+      }
+      #container {
+        display: grid;
+        width: 300px;
+        margin: auto;
+        border: 2px dotted;
+        text-align: center;
+      }
+      table {
+        width: 300px;
+        margin: auto;
+      }
+      p {
+        margin: 0;
+        font-family: monospace;
+        font-size: 1.5em;
+      }
+      img {
+        max-width: calc(100% - 20px);
+        margin: 10px;
+      }
+      /* footer section styling */
+      footer {
+        background: #111;
+        padding: 15px 23px;
+        color: rgb(126, 117, 117);
+        text-align: center;
+        font-size: 10px;
+      }
+      footer span a {
+        color: rgb(0, 0, 104);
+        text-decoration: none;
+      }
+      footer span a:hover {
+        text-decoration: underline;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+  </head>
+  <body>
+    <div class="main-page">
+      <div class="left">
+        <input type="file" id="file-input" hidden />
+        <div id="container">
+          <div class="buttonss">
+            <button>Select an image</button>
+            <button>Proceed</button>
+          </div>
+
+          <p>Preview</p>
+          <img id="preview" />
+        </div>
+      </div>
+      <hr />
+      <div class="right">
+        <table>
+          <thead>
+            <tr>
+              <th>Disease_name</th>
+              <th>Plant</th>
+              <th>Description</th>
+              <th>Identifying features</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Apple scab</td>
+              <td>Appla</td>
+              <td>Disease of apple</td>
+              <td>bas bey bore ho gaya tu likh yeh</td>
+            </tr>
+            <tr>
+              <td>Apple scab</td>
+              <td>Appla</td>
+              <td>Disease of apple</td>
+              <td>bas bey bore ho gaya tu likh yeh</td>
+            </tr>
+            <tr>
+              <td>Apple scab</td>
+              <td>Appla</td>
+              <td>Disease of apple</td>
+              <td>bas bey bore ho gaya tu likh yeh</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <footer>
+      <i class="far fa-copyright"
+        ><span><X86-64></X86-64></span>
+      </i>
+      Made with <i class="fas fa-heart"></i> and
+      <i class="fas fa-coffee"></i> X86_64:)
+    </footer>
+    <script>
+      var input = document.querySelector("#file-input");
+
+      document.querySelector("button").addEventListener("click", function () {
+        input.click();
+      });
+
+      input.addEventListener("change", preview);
+      function preview() {
+        var fileObject = this.files[0];
+        var fileReader = new FileReader();
+        fileReader.readAsDataURL(fileObject);
+        fileReader.onload = function () {
+          var result = fileReader.result;
+          var img = document.querySelector("#preview");
+          img.setAttribute("src", result);
+        };
+      }
+    </script>
+  </body>
+</html>
